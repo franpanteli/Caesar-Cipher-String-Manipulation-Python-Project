@@ -1,0 +1,259 @@
+VARIABLES 
+-> number = 5 <- To define a Python variable 
+-> string_1 = "I am a string" <- Strings can be stored in variables 
+	-> You can 'use these quotations' or "these"
+-> text = 'Hello World' <- Example of this 
+-> print(text) <- To print the value stored in the `text` variable 
+
+THE PRINT FUNCTION 
+-> print() <- To add an empty line 
+-> print(greet) <- To print the value stored in the `greet` variable  
+-> text[0] <- The first element of the `text` string
+-> print(text[-1]) <- For the last element in a string 
+-> len(text) <- For the length of the string stored in the `text` variable 
+	-> print(len(text)) <- To actually print this length out 
+-> type() <- For the datatype of a variable
+	-> print(type(text)) <- This returns <class 'str'>
+		-> <class 'int'> <- Another example of this is the integer class 
+	-> The string (type) we are dealing with 
+-> Do not name variables for, while, True 
+	-> Do not start them with numbers
+	-> Their names are case sensitive
+	-> They can include _underscores
+	-> this_is_common_variable_naming_syntax_in_Python
+
+BUILDING A CAESAR CIPHER 
+-> Take each letter in the message, find the position of that letter in the alphabet
+-> Then take the letter 3 positions later and replace the letter with it 
+-> So we take the entire message and shift the whole thing three letters forward in the alphabet
+-> text.find('W') <- To find the index in the `text` string where the 'W' character is 
+-> Example 
+
+text = 'Hello World'
+shift = 3
+alphabet = 'abcdefghijklmnopqrstuvwxyz'
+alphabet.find(text[0])
+
+	-> This returns nothing 
+	-> Take the 0th element in the `text` variable, which is H 
+	-> Find that character in the `alphabet` string <- it doesn't exist there, so this returns nothing  
+
+-> index = alphabet.find(text[0]) 
+	-> The 0th element of the `text` variable is H 
+	-> Find the index of the element in the `alphabet` variable where this is stored 
+	-> Put the index of that element in the variable called `index`
+-> print(index) <- Then to save the value of this 
+-> .find() returns -1 if the element we are searching for in the string doesn't exist 
+
+-> .lower() <- To convert a string into lowercase:
+	-> print(text.lower()) <- To print the value of the `text` variable in lowercase 
+-> index = alphabet.find(text[0].lower())
+	-> And then print(index)
+	-> In the alphabet variable, find the index of the lowercase version of H
+	-> And then print it out (7)
+-> shifted = alphabet[index] 
+	-> Index is the index of the 0th element in the text string, made lowercase 
+	-> alphabet[index] is the element in the alphabet which that letter is 
+	-> We want to shift it forwards by 3 
+	-> Then shifted = alphabet[index + shift] <- Now we shift the letter in the alphabet forwards by 3 
+		-> shift is the name of the variable which we store the amount of characters in the alphabet we want to shift the element forwards by 
+		-> Take this element in this input string, and shift it forwards in the alphabet by this amount 
+		-> Return the letter which has been shifted along by 3, and store it in this variable called `shifted`
+
+-> Using a for loop with this:
+	-> for i in text: <- We are iterating through the `text` variable 
+	-> Then indented under this, print(i) 
+	-> Without the indentation, the output won't work 
+	-> IndentationError
+	-> You can change i to char and the output will be the same 
+	-> Choosing this based on the context 
+	-> Then inside the for loop, we are resetting the values of the different variables 
+		-> This is done using index = alphabet.find(char) inside the loop 
+	-> At each stage of the loop, you can for example use print(char, index) to print the values of these two variables through each iteration 
+		-> The character and its index 
+		-> We need to also consider the space
+	-> We have changed for i in text to for i in text.lower() <- We are iterating through the lowercase version of the input text 
+	-> new_index = index + shift <- Then at each stage in the loop, we are updating the value of the index 
+-> Strings are immutable <- They can't be changed once we've created them 
+	-> You can't set the nth element of a string equal to some other character to change it, because strings are immutable 
+	-> If you want to do this, you have to redefine the entire variable 
+		-> Text = '...' On one line 
+		-> And then Text = '...' On the next 
+	-> At each iteration of the loop, we are printing out the values of certain characters - to see how the for loop is operating 
+		-> These print functions can be made more sophisticated <- For example print('char:', char, 'new char:', new_char)
+	-> encrypted_text = encrypted_text + alphabet[new_index] <- In the for loop, updating the values of variables after each iteration 
+-> a += b <- To add a value to a variable  
+	-> a = a + b <- Add the value of b to the a variable 
+
+-> Comparison operators: 
+	-> Comparing two objects based on their values
+	-> These are boolean expressions, which return True of False 
+
+==	Equal
+!=	Not equal
+>	Greater than
+<	Less than
+>=	Greater than or equal to
+<=	Less than or equal to
+
+	-> print(char == ' ') <- To print the comparison between char and a space 
+		-> We are saying, is char equal to a space? Return a boolean value which dictates this as True or False 
+
+-> Conditional if statements:
+	
+	if x != 0:
+	    print(x)
+
+	-> If x is not equal to x, print it 
+	-> We can add if statements inside for loops <- If the element that we are currently iterating through equals this, then print this 
+		-> In this example this is done with boolean statements 
+	-> Else statements:
+		-> These can also have else clauses, after the if statements 
+		-> Execute this if the if condition is False 
+
+-> This is the current content of the code:
+
+text = 'Hello Zaira'
+shift = 3
+alphabet = 'abcdefghijklmnopqrstuvwxyz'
+encrypted_text = ''
+
+for char in text.lower():
+    if char == ' ':
+        encrypted_text += char
+    else:
+        index = alphabet.find(char)
+        new_index = index + shift
+        encrypted_text += alphabet[new_index]
+    print('char:', char, 'encrypted text:', encrypted_text)
+
+	-> We are iterating through each element of the `text` variable, going three characters forward in the alphabet and performing the cypher
+	-> We are iterating through the entire string for this -> each iteration is for a character in the string 
+	-> So after each output of the executed code, we are printing out the cypher but just with a new character  
+
+-> Modulo:
+	-> 5 % 2 <- Return the remainder of this division 
+	-> We can do this with the letters of the alphabet <- when the letter Z is reached 
+	-> new_index = (index + shift)%26 <- So we can here use this, to make sure that the length of this variable does not exceed the length of the alphabet 
+		-> We can't go past the letter Z
+		-> Then replacing 26 with len(alphabet), in case we want to add upper case letters to the `alphabet` variable 
+
+-> You can print the output of the for loop during tech iteration, or after the entire set of iterations is complete 
+-> We can use this to format the outputs of the loops in a more sophisticated way 
+	-> print('plain text:', text) <- In this case 
+
+-> Functions:
+	-> These are reusable blocks of code 
+	-> print(), find(), len()
+	-> We can define our own functions and use builtin ones 
+	-> def function_name(): <- To define a function 
+    		<code>  
+	-> We are then putting the entire if loop into a caesar function 
+	-> function_name() <- To execute (call) a function 
+	-> In this case it's caesar()
+	-> You can add arguments (parameters) into this 
+		-> For example with (param_1, param_2)
+		-> If you don't use arguments, or change these, then the function will return the same output each time it is called 
+	-> We are now adding two arguments to the caesar function, called message and offset
+		-> The arguments of the function have to equal the variables which are defined inside it <- Going back and changing them  
+	-> caesar(text, shift) <- To call a function with these values as its arguments 
+	-> You can run the same function, but with different arguments 
+
+Caesar cipher to Vigenère cipher:
+-> The Caesar cipher takes the input string and shifts all of the letters along by some amount in the alphabet
+-> The shift is constant 
+-> That's what we've just coded, this is it so far:
+
+text = 'Hello Zaira'
+shift = 3
+
+def caesar(message, offset):
+    alphabet = 'abcdefghijklmnopqrstuvwxyz'
+    encrypted_text = ''
+
+    for char in message.lower():
+        if char == ' ':
+            encrypted_text += char
+        else:
+            index = alphabet.find(char)
+            new_index = (index + offset) % len(alphabet)
+            encrypted_text += alphabet[new_index]
+    print('plain text:', message)
+    print('encrypted text:', encrypted_text)
+
+-> Now what we want to do is take this and make the shift variable by each letter we are iterating through
+	-> This is called a Vigenère cipher
+-> We want to vary the offset for each letter
+-> The key is what determines this offset 
+-> We are changing the name of the function into vigenere and the value of the second argument (parameter) to key 
+-> We are changing shift from a variable 
+	-> Then declaring a variable called custom_key instead
+	-> We are making the shift variable
+	-> Inside the text with the definition for the function, this is called the function body 
+	-> We are setting a variable inside this which initialises the key of the offset 
+
+-> Comments:
+	-> # This is the syntax for comments 
+
+-> Defining a variable is the same as declaring it 
+-> key_index <- We are then increasing the count of the key_index by 1 for each iteration in the cycle
+
+-> The .index() method:
+	-> This is the same as the .find() method 
+	-> The .index() method throws a value exception if it can't find the substring <- but the .find method doesn't return value exceptions 
+
+-> return statements:
+	-> This is so other functions can use the value which is outputted by the function 
+	-> We can store this in a variable 
+	-> In this case we are returning the encrypted text 
+	-> encryption = vigenere(text, custom_key) <- For example, store the output of the `vigenere` function in the `encryption` variable 
+	-> You can then print the output of that variable 
+
+-> Going from encryption to decryption 
+	-> Encryption and decryption are opposite processes 
+	-> We are making the function so that it can encrypt and decrypt messages (with the same function)
+	-> And commenting sections in the definition of this which accomplishes this 
+
+-> Default values for arguments: 
+	-> Functions can be called with default arguments 
+	-> This is the value of the argument which it uses if one isn't passed into it 
+	-> This is an example of how to set such arguments:
+
+def foo(a, b, c=value):
+    <code>
+
+-> def vigenere(message, key, direction=1): <- Set the default value of the direction argument equal to 1 
+	-> This way when you call the function, you don't need to enter in the third argument 
+
+-> The char.isalpha() method:
+	-> The argument of this is tested to see if it only contains strings or not 
+	-> This returns a boolean expression 
+	-> In this case, we do this using this: 
+
+if not char.isalpha():
+            final_message += char
+
+	-> If it is not 
+	-> This is different too !
+	-> We are using this on a boolean expression -> if what we get out is not the value of this boolean expression, execute this condition 
+
+-> def foo():
+    pass
+	-> To pass a section of the code in the definition of the function 
+	-> At the moment, calling the vigenere function with 1 will encrypt and calling the function with -1 will decrypt 
+	-> We are changing this using `pass
+
+-> We can define functions based on other functions
+	-> The decrypt function is a case of vigenere with a negative third argument 
+-> Once we have define the function to encrypt messages, we are testing it <- This for the new vigenere function
+	-> The same function can be used to encrypt and decrypt the messages
+
+-> Concatenating the + operator: 
+	-> Adding two strings together 
+	-> For example, 'Hello' + ' there!'
+	-> print('Encrypted text: ' + text) <- This is how we are doing this in the vigenere function
+
+-> print(f'Encrypted text: {text}') <- F string literals 
+	-> This allows us to interpolate a value in the string 
+	-> text in this use is the name of the variable 
+	-> print(f'\nEncrypted text: {text}') <- You can add new lines into this (using \n)
