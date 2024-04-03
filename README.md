@@ -13,5 +13,5 @@ Project files were pushed to this repository once all unit tests ([test_module.p
 
 ### To Clone This Repository
 ```
-git clone https://github.com/franpanteli/Data-Analysis-Python-Sea-Level-Predictor-Project.git
+git clone https://github.com/franpanteli/Caesar-Cipher-String-Manipulation-Python-Project.git
 ```
